@@ -15,7 +15,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let sensor of getSensors()">
-      <button *ngIf="isAdmin()" class="btn btn-warning"  (click)="updateSensor(sensor.id)">Update</button>
+      <button *ngIf="isAdmin()" class="btn btn-warning" (click)="updateSensor(sensor.id)">Update</button>
       <td>{{sensor.name}}</td>
       <td>{{sensor.model}}</td>
       <td>{{sensor.range}}</td>
@@ -27,7 +27,6 @@
     </tr>
   </tbody>
 </table>
-<button *ngIf="isAdmin()" class="btn btn-danger">Add</button>
 <div class="pb-0 pt-3">
   <ul *ngIf="pageAmount > 0" class="pagination">
     <li [ngClass]="{disabled:currentPage === 1}" (click)="loadPages($event)" class="page-item first-item">
@@ -48,3 +47,6 @@
     </li>
   </ul>
 </div>
+<button *ngIf="isAdmin()"  mat-raised-button (click)="openDialog()">
+  Add
+</button>
