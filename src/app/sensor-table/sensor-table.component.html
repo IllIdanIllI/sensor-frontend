@@ -1,0 +1,50 @@
+<p>
+  sensor-table works!
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">name</th>
+      <th scope="col">model</th>
+      <th scope="col">range</th>
+      <th scope="col">location</th>
+      <th scope="col">unit</th>
+      <th scope="col">type</th>
+      <th scope="col">description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sensor of getSensors()">
+      <button *ngIf="isAdmin()" class="btn btn-warning"  (click)="updateSensor(sensor.id)">Update</button>
+      <td>{{sensor.name}}</td>
+      <td>{{sensor.model}}</td>
+      <td>{{sensor.range}}</td>
+      <td>{{sensor.location}}</td>
+      <td>{{sensor.unit}}</td>
+      <td>{{sensor.type}}</td>
+      <td>{{sensor.description}}</td>
+      <button *ngIf="isAdmin()" class="btn btn-danger" (click)="deleteSensor(sensor.id)">Delete</button>
+    </tr>
+  </tbody>
+</table>
+<button *ngIf="isAdmin()" class="btn btn-danger">Add</button>
+<div class="pb-0 pt-3">
+  <ul *ngIf="pageAmount > 0" class="pagination">
+    <li [ngClass]="{disabled:currentPage === 1}" (click)="loadPages($event)" class="page-item first-item">
+      <a routerLink [queryParams]="{ page: 1 }" class="page-link">First</a>
+    </li>
+    <li [ngClass]="{disabled:currentPage === 1}" (click)="loadPages($event)" class="page-item previous-item">
+      <a routerLink [queryParams]="{ page: currentPage - 1 }" class="page-link">Previous</a>
+    </li>
+    <li *ngFor="let page of pages" [ngClass]="{active:currentPage === page}" (click)="loadPages($event)"
+      class="page-item number-item">
+      <a routerLink [queryParams]="{ page: page }" class="page-link">{{page}}</a>
+    </li>
+    <li [ngClass]="{disabled:currentPage === pages.length}" (click)="loadPages($event)" class="page-item next-item">
+      <a routerLink [queryParams]="{ page: +currentPage + 1 }" class="page-link">Next</a>
+    </li>
+    <li [ngClass]="{disabled:currentPage === ppageAmount}" (click)="loadPages($event)" class="page-item last-item">
+      <a routerLink [queryParams]="{ page: pageAmount }" class="page-link">Last</a>
+    </li>
+  </ul>
+</div>
