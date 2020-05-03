@@ -1,3 +1,4 @@
+import { SensorResponse } from './../_models/response/sensor-response';
 import { SensorModifyComponent } from './../sensor-modify/sensor-modify.component';
 import { MatDialog } from '@angular/material';
 import { PaginationDto } from './../_models/pagination-dto';
@@ -25,9 +26,48 @@ export class SensorTableComponent implements OnInit {
     private auth: AuthenticationService,
     public dialog: MatDialog) { }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(SensorModifyComponent);
-    dialogRef.afterClosed().subscribe(result => console.log(result))
+  addSensor(): void {
+    const dialogRef = this.dialog.open(SensorModifyComponent, {
+      data: { sensor: new SensorResponse(), isAdding: true },
+      autoFocus: false,
+      maxHeight: '80vh',
+      width: '30vw',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.service.addSensor(result);
+        window.location.reload();;
+      }
+    });
+  }
+
+  openDialogUpdate(commonSensor: Sensor): void {
+    let sensor: SensorResponse = this.mapSensorToResponse(commonSensor);
+    const dialogRef = this.dialog.open(SensorModifyComponent, {
+      data: { sensor: sensor, isAdding: false },
+      autoFocus: false,
+      maxHeight: '80vh',
+      width: '30vw',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.service.updateSensor(commonSensor.id, result);
+        window.location.reload();
+      }
+    })
+  }
+
+  private mapSensorToResponse(sensor: Sensor): SensorResponse {
+    let range: string[] = sensor.range.split("-");
+    let rangeFrom = range[0];
+    let rangeTo = range[1];
+    let response = new SensorResponse(
+      sensor.id, sensor.name, sensor.model,
+      rangeFrom, rangeTo, sensor.location,
+      sensor.unit, sensor.type, sensor.description
+    );
+    return response;
   }
 
   ngOnInit() {
@@ -50,12 +90,7 @@ export class SensorTableComponent implements OnInit {
   deleteSensor(id: string) {
     console.log(id);
     this.service.deleteSensor(id);
-    this.loadPages();
-  }
-
-  updateSensor(id: string) {
-    console.log(this.sensors.find(sensor => sensor.id == id))
-    this.service.updateSensor(id, (this.sensors.find(sensor => sensor.id == id)))
+    window.location.reload();
   }
 
   isAdmin() {

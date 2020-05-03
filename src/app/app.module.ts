@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -27,6 +27,7 @@ import { SensorModifyComponent } from './sensor-modify/sensor-modify.component'
         ReactiveFormsModule,
         HttpClientModule,
         appRoutingModule,
+        FormsModule,
         
     ],
     entryComponents:[

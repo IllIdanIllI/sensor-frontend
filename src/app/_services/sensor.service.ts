@@ -1,3 +1,4 @@
+import { SensorResponse } from './../_models/response/sensor-response';
 import { environment } from './../../environments/environment';
 import { Sensor } from './../_models/sensor';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -21,7 +22,11 @@ export class SensorService {
     this.http.delete(`${environment.HOST_URL}/sensors/${id}`).toPromise()
   }
 
-  updateSensor(id: string, entity: Sensor) {
+  updateSensor(id: string, entity: SensorResponse) {
     return this.http.put(`${environment.HOST_URL}/sensors/${id}`, entity).subscribe(response => console.log(response))
+  }
+
+  addSensor( entity: SensorResponse) {
+    return this.http.post(`${environment.HOST_URL}/sensors`, entity).subscribe(response => console.log(response))
   }
 }

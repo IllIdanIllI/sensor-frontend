@@ -4,25 +4,25 @@
 <table class="table">
   <thead>
     <tr>
+      <th scope="col"></th>
       <th scope="col">name</th>
       <th scope="col">model</th>
       <th scope="col">range</th>
       <th scope="col">location</th>
       <th scope="col">unit</th>
       <th scope="col">type</th>
-      <th scope="col">description</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let sensor of getSensors()">
-      <button *ngIf="isAdmin()" class="btn btn-warning" (click)="updateSensor(sensor.id)">Update</button>
-      <td>{{sensor.name}}</td>
+      <button *ngIf="isAdmin()" class="btn btn-warning" (click)="openDialogUpdate(sensor)">Update</button>
+      <td matTooltip="{{sensor.description}}">{{sensor.name}}</td>
       <td>{{sensor.model}}</td>
       <td>{{sensor.range}}</td>
       <td>{{sensor.location}}</td>
       <td>{{sensor.unit}}</td>
       <td>{{sensor.type}}</td>
-      <td>{{sensor.description}}</td>
       <button *ngIf="isAdmin()" class="btn btn-danger" (click)="deleteSensor(sensor.id)">Delete</button>
     </tr>
   </tbody>
@@ -47,6 +47,6 @@
     </li>
   </ul>
 </div>
-<button *ngIf="isAdmin()"  mat-raised-button (click)="openDialog()">
+<button *ngIf="isAdmin()" class="btn btn-success" mat-raised-button (click)="addSensor()">
   Add
 </button>
