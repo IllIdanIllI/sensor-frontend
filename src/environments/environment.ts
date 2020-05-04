@@ -6,7 +6,8 @@ export const environment = {
     production: false,
     apiUrl: 'http://localhost:4000',
     HOST_URL: 'http://localhost:8090',
-    CURRENT_USER: 'currentUser'
+    CURRENT_USER: 'currentUser',
+    RECORDS_PAGE_LIMIT: 4,
 };
 
 /*

@@ -1,6 +1,9 @@
-<p>
-  sensor-table works!
-</p>
+<!-- <form [formGroup]="criteria"></form> -->
+<mat-form-field appearance="outline">
+  <mat-label>Type everythig name or model or smt else</mat-label>
+  <input (change)="searchByCriteria($event)" matInput placeholder="Search by criteria" min="1" max="{{maxRangeValue}}">
+</mat-form-field>
+<button color="primary" mat-button>Search</button>
 <table class="table">
   <thead>
     <tr>
@@ -29,20 +32,20 @@
 </table>
 <div class="pb-0 pt-3">
   <ul *ngIf="pageAmount > 0" class="pagination">
-    <li [ngClass]="{disabled:currentPage === 1}" (click)="loadPages($event)" class="page-item first-item">
+    <li [ngClass]="{disabled:+currentPage === 1}" (click)="loadPages($event)" class="page-item first-item">
       <a routerLink [queryParams]="{ page: 1 }" class="page-link">First</a>
     </li>
-    <li [ngClass]="{disabled:currentPage === 1}" (click)="loadPages($event)" class="page-item previous-item">
+    <li [ngClass]="{disabled:+currentPage === 1}" (click)="loadPages($event)" class="page-item previous-item">
       <a routerLink [queryParams]="{ page: currentPage - 1 }" class="page-link">Previous</a>
     </li>
-    <li *ngFor="let page of pages" [ngClass]="{active:currentPage === page}" (click)="loadPages($event)"
+    <li *ngFor="let page of pages" [ngClass]="{active:currentPage == page}" (click)="loadPages($event)"
       class="page-item number-item">
       <a routerLink [queryParams]="{ page: page }" class="page-link">{{page}}</a>
     </li>
-    <li [ngClass]="{disabled:currentPage === pages.length}" (click)="loadPages($event)" class="page-item next-item">
+    <li [ngClass]="{disabled:+currentPage === pages.length}" (click)="loadPages($event)" class="page-item next-item">
       <a routerLink [queryParams]="{ page: +currentPage + 1 }" class="page-link">Next</a>
     </li>
-    <li [ngClass]="{disabled:currentPage === ppageAmount}" (click)="loadPages($event)" class="page-item last-item">
+    <li [ngClass]="{disabled:+currentPage === +pageAmount}" (click)="loadPages($event)" class="page-item last-item">
       <a routerLink [queryParams]="{ page: pageAmount }" class="page-link">Last</a>
     </li>
   </ul>

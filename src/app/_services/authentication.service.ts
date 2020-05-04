@@ -31,7 +31,6 @@ export class AuthenticationService {
     login(login: string, password: string) {
         return this.http.post<any>(`${environment.HOST_URL}/sign-in`, { login: login, password })
             .pipe(map((object => {
-                console.log(object)
                 let user: User = new User()
                 user.token = object.token;
                 user.role = object.role;

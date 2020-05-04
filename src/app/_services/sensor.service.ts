@@ -18,6 +18,14 @@ export class SensorService {
     return this.http.get(`${environment.HOST_URL}/sensors`, { params: params });
   }
 
+  searchByCriteria(phrase: string, currentPage: number, limit: number) {
+    let params: HttpParams = new HttpParams()
+      .set("phrase", phrase)
+      .set("currentPage", currentPage.toString())
+      .set("limit", limit.toString());
+    return this.http.get(`${environment.HOST_URL}/sensors/search`, { params: params });
+  }
+
   deleteSensor(id: string) {
     this.http.delete(`${environment.HOST_URL}/sensors/${id}`).toPromise()
   }
@@ -26,7 +34,7 @@ export class SensorService {
     return this.http.put(`${environment.HOST_URL}/sensors/${id}`, entity).subscribe(response => console.log(response))
   }
 
-  addSensor( entity: SensorResponse) {
+  addSensor(entity: SensorResponse) {
     return this.http.post(`${environment.HOST_URL}/sensors`, entity).subscribe(response => console.log(response))
   }
 }

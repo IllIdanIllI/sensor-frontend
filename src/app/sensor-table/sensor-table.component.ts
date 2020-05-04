@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SensorService } from './../_services/sensor.service';
 import { Sensor } from './../_models/sensor';
 import { Component, OnInit } from '@angular/core';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'sensor-table',
@@ -79,7 +80,7 @@ export class SensorTableComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.currentPage = params.page || 1
     });
-    this.service.getSensorList(this.currentPage - 1, 4)
+    this.service.getSensorList(this.currentPage - 1, environment.RECORDS_PAGE_LIMIT)
       .subscribe(response => {
         this.sensors = (<PaginationDto>response).entities;
         this.pageAmount = (<PaginationDto>response).pageAmount;
@@ -91,6 +92,24 @@ export class SensorTableComponent implements OnInit {
     console.log(id);
     this.service.deleteSensor(id);
     window.location.reload();
+  }
+
+  searchByCriteria(event: Event) {
+    const phrase: string = event.target["value"];
+    if (phrase) {
+      this.route.queryParams.subscribe(params => {
+        this.currentPage = params.page || 1
+      });
+      this.service.searchByCriteria(phrase, this.currentPage - 1, environment.RECORDS_PAGE_LIMIT)
+        .subscribe(response => {
+          this.sensors = (<PaginationDto>response).entities;
+          this.pageAmount = (<PaginationDto>response).pageAmount;
+          this.pages = Array(this.pageAmount).fill(0).map((x, i) => ++i);
+        });
+    } else {
+      this.loadPages();
+    }
+
   }
 
   isAdmin() {
