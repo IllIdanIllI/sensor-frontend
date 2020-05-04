@@ -1,5 +1,16 @@
-# angular-8-jwt-authentication-example
+# Frontend part
 
-Angular 8 - JWT Authentication Example with the Angular CLI
+## Use cases
+```python
+- search by phrase
+- see all sensors with pagination
+- sign in ability
+- add/ delete/ update for administrator role
+```
 
-To see a demo and further details go to https://jasonwatmore.com/post/2019/06/22/angular-8-jwt-authentication-example-tutorial
+## credentials
+
+```python
+   - admin: username - "admin", password - "admin"
+   - viewer: username - "commonViewer", password - "commonViewer"
+   ```
