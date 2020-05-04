@@ -13,7 +13,6 @@ import { AppComponent } from './app.component';
 import { appRoutingModule } from './app.routing';
 
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { HomeComponent } from './home';
 import { LoginComponent } from './login';;
 import { SensorTableComponent } from './sensor-table/sensor-table.component'
 ;
@@ -28,14 +27,13 @@ import { SensorModifyComponent } from './sensor-modify/sensor-modify.component'
         HttpClientModule,
         appRoutingModule,
         FormsModule,
-        
+
     ],
     entryComponents:[
         SensorModifyComponent,
     ],
     declarations: [
         AppComponent,
-        HomeComponent,
         LoginComponent,
         SensorTableComponent,
         SensorModifyComponent,

@@ -1,6 +1,5 @@
 import { SensorResponse } from './../_models/response/sensor-response';
 import { environment } from './../../environments/environment';
-import { Sensor } from './../_models/sensor';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
