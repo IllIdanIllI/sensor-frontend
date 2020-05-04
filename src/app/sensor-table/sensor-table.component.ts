@@ -16,10 +16,11 @@ import { environment } from '@environments/environment';
 })
 export class SensorTableComponent implements OnInit {
   private sensors: Sensor[] = [];
-  private pageAmount: number;
-  private pages: number[];
+  pageAmount: number;
+  pages: number[];
   private currentPage: number = 1;
   private role: string;
+  private searchCriteria: string;
 
 
   constructor(private service: SensorService,
@@ -94,8 +95,14 @@ export class SensorTableComponent implements OnInit {
     window.location.reload();
   }
 
-  searchByCriteria(event: Event) {
-    const phrase: string = event.target["value"];
+  setCriteria(event: Event) {
+
+    this.searchCriteria = event.target["value"];
+    console.log(this.searchCriteria, "set")
+  }
+
+  searchByCriteria(): void {
+    let phrase: string = this.searchCriteria;
     if (phrase) {
       this.route.queryParams.subscribe(params => {
         this.currentPage = params.page || 1
@@ -109,7 +116,6 @@ export class SensorTableComponent implements OnInit {
     } else {
       this.loadPages();
     }
-
   }
 
   isAdmin() {
@@ -118,6 +124,10 @@ export class SensorTableComponent implements OnInit {
 
   getSensors() {
     return this.sensors;
+  }
+
+  isCriteriaSearch(): boolean {
+    return this.searchCriteria != null || this.searchCriteria != "";
   }
 
 }
